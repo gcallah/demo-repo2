@@ -10,6 +10,9 @@ import db.db as db
 app = Flask(__name__)
 api = Api(app)
 
+HELLO = 'Hola'
+WORLD = 'mundo'
+
 
 @api.route('/hello')
 class HelloWorld(Resource):
@@ -22,7 +25,7 @@ class HelloWorld(Resource):
         A trivial endpoint to see if the server is running.
         It just answers with "hello world."
         """
-        return {'hello': 'world'}
+        return {HELLO: WORLD}
 
 
 @api.route('/endpoints')
