@@ -9,4 +9,4 @@ fi
 
 # run our server locally:
 PYTHONPATH=$(pwd):$PYTHONPATH
-FLASK_APP=endpoints flask run --host=$HOST --port=$PORT
+FLASK_APP=API.endpoints flask run --host=$HOST --port=$PORT
