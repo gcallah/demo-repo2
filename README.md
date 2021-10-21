@@ -2,6 +2,8 @@
 
 ## Requirements
 
+- List chat rooms
+- Create a user
 - Allow user to enter chat room
 - Greet the user
 - Keep track of users
