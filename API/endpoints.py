@@ -6,7 +6,7 @@ The endpoint called `endpoints` will return all available endpoints.
 from http import HTTPStatus
 from flask import Flask
 from flask_restx import Resource, Api
-# import db.db as db
+import db.db as db
 
 app = Flask(__name__)
 api = Api(app)
@@ -30,7 +30,7 @@ class HelloWorld(Resource):
 
 
 @api.route('/list_rooms')
-class ListRoom(Resource):
+class ListRooms(Resource):
     """
     This endpoint returns a list of all rooms.
     """
@@ -38,8 +38,11 @@ class ListRoom(Resource):
         """
         Returns a list of all chat rooms.
         """
-        return {"Software Engineering": {"num_users": 17},
-                "AI": {"num_users": 27}, }
+        rooms = db.get_rooms()
+        if rooms is None:
+            pass
+        else:
+            return rooms
 
 
 @api.route('/endpoints')

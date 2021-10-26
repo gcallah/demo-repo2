@@ -15,6 +15,6 @@ script:
 deploy:
     - provider: heroku
       api_key: $HEROKU_API_KEY
-      app: demo-repo22
+      app: demo-repo23
       on:
           branch: master

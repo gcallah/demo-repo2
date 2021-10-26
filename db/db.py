@@ -4,9 +4,17 @@ At first, it will just contain stubs that return fake data.
 Gradually, we will fill in actual calls to our datastore.
 """
 
+import json
 
-def fetch_pets():
+ROOMS_DB = "../db/rooms.json"
+
+
+def get_rooms():
     """
-    A function to return all pets in the data store.
+    A function to return all chat rooms.
     """
-    return {"tigers": 2, "lions": 3, "zebras": 1}
+    try:
+        with open(ROOMS_DB) as file:
+            return json.loads(file.read())
+    except FileNotFoundError:
+        return None
