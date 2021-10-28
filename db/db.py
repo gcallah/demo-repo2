@@ -5,8 +5,11 @@ Gradually, we will fill in actual calls to our datastore.
 """
 
 import json
+import os
 
-ROOMS_DB = "/home/gcallah/Classes/demo-repo2/db/rooms.json"
+DEMO_HOME = os.environ["DEMO_HOME"]
+
+ROOMS_DB = f"{DEMO_HOME}/db/rooms.json"
 
 
 def get_rooms():
