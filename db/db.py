@@ -6,7 +6,7 @@ Gradually, we will fill in actual calls to our datastore.
 
 import json
 
-ROOMS_DB = "../db/rooms.json"
+ROOMS_DB = "/home/gcallah/Classes/demo-repo2/db/rooms.json"
 
 
 def get_rooms():
