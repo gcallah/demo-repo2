@@ -9,6 +9,7 @@
 - Keep track of users
 - Answer user questions
 - Recognize user has left
+- Post messages
 
 ## Design
 
