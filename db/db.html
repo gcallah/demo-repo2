@@ -8,17 +8,43 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>db</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/gcallah/GitProjects/flask-api/source/db.py">/Users/gcallah/GitProjects/flask-api/source/db.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/gcallah/Classes/demo-repo2/db/db.py">/home/gcallah/Classes/demo-repo2/db/db.py</a></font></td></tr></table>
     <p><tt>This&nbsp;file&nbsp;will&nbsp;manage&nbsp;interactions&nbsp;with&nbsp;our&nbsp;data&nbsp;store.<br>
 At&nbsp;first,&nbsp;it&nbsp;will&nbsp;just&nbsp;contain&nbsp;stubs&nbsp;that&nbsp;return&nbsp;fake&nbsp;data.<br>
 Gradually,&nbsp;we&nbsp;will&nbsp;fill&nbsp;in&nbsp;actual&nbsp;calls&nbsp;to&nbsp;our&nbsp;datastore.</tt></p>
 <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#eeaa77">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
     
 <tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><dl><dt><a name="-fetch_pets"><strong>fetch_pets</strong></a>()</dt><dd><tt>A&nbsp;function&nbsp;to&nbsp;return&nbsp;all&nbsp;pets&nbsp;in&nbsp;the&nbsp;data&nbsp;store.</tt></dd></dl>
-</td></tr></table>
+<td width="100%"><dl><dt><a name="-add_room"><strong>add_room</strong></a>(roomname)</dt><dd><tt>Add&nbsp;a&nbsp;room&nbsp;to&nbsp;the&nbsp;room&nbsp;database.<br>
+Until&nbsp;we&nbsp;are&nbsp;using&nbsp;a&nbsp;real&nbsp;DB,&nbsp;we&nbsp;have&nbsp;a&nbsp;potential<br>
+race&nbsp;condition&nbsp;here.</tt></dd></dl>
+ <dl><dt><a name="-get_rooms"><strong>get_rooms</strong></a>()</dt><dd><tt>A&nbsp;function&nbsp;to&nbsp;return&nbsp;all&nbsp;chat&nbsp;rooms.</tt></dd></dl>
+ <dl><dt><a name="-write_rooms"><strong>write_rooms</strong></a>(rooms)</dt><dd><tt>Write&nbsp;out&nbsp;the&nbsp;in-memory&nbsp;room&nbsp;list&nbsp;in&nbsp;proper&nbsp;DB&nbsp;format.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>DB_DIR</strong> = '/home/gcallah/Classes/demo-repo2/db'<br>
+<strong>DEMO_HOME</strong> = '/home/gcallah/Classes/demo-repo2'<br>
+<strong>DUPLICATE</strong> = 2<br>
+<strong>NOT_FOUND</strong> = 1<br>
+<strong>OK</strong> = 0<br>
+<strong>ROOMS_DB</strong> = '/home/gcallah/Classes/demo-repo2/db/test_rooms.json'<br>
+<strong>TEST_MODE</strong> = '1'</td></tr></table>
 </body></html>
