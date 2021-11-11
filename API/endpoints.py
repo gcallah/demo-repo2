@@ -8,7 +8,7 @@ from flask import Flask
 from flask_restx import Resource, Api
 import werkzeug.exceptions as wz
 
-import db.db as db
+import db.data as db
 
 app = Flask(__name__)
 api = Api(app)
@@ -74,6 +74,7 @@ class Endpoints(Resource):
     This class will serve as live, fetchable documentation of what endpoints
     are available in the system.
     """
+    @api.response(HTTPStatus.OK, 'Success')
     def get(self):
         """
         The `get()` method will return a list of available endpoints.

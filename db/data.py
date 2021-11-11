@@ -16,6 +16,7 @@ else:
     DB_DIR = f"{DEMO_HOME}/db"
 
 ROOMS_DB = f"{DB_DIR}/rooms.json"
+USERS_DB = f"{DB_DIR}/users.json"
 
 OK = 0
 NOT_FOUND = 1
@@ -60,10 +61,18 @@ def add_room(roomname):
 
 
 def get_users():
-    return {"Fred": {}}
+    """
+    A function to return a dictionary of all users.
+    """
+    try:
+        with open(USERS_DB) as file:
+            return json.loads(file.read())
+    except FileNotFoundError:
+        print("Users db not found.")
+        return None
 
 
-def write_users():
+def write_users(users):
     pass
 
 
