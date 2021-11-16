@@ -15,32 +15,46 @@ if TEST_MODE:
 else:
     DB_DIR = f"{DEMO_HOME}/db"
 
-ROOMS_DB = f"{DB_DIR}/rooms.json"
-USERS_DB = f"{DB_DIR}/users.json"
+ROOM_COLLECTION = f"{DB_DIR}/rooms.json"
+USER_COLLECTION = f"{DB_DIR}/users.json"
 
 OK = 0
 NOT_FOUND = 1
 DUPLICATE = 2
 
 
-def write_rooms(rooms):
+def write_collection(perm_version, mem_version):
     """
-    Write out the in-memory room list in proper DB format.
+    Write out the in-memory data collection in proper DB format.
     """
-    with open(ROOMS_DB, 'w') as f:
-        json.dump(rooms, f, indent=4)
+    with open(perm_version, 'w') as f:
+        json.dump(mem_version, f, indent=4)
+
+
+def read_collection(perm_version):
+    """
+    A function to read a colleciton off of disk.
+    """
+    try:
+        with open(perm_version) as file:
+            return json.loads(file.read())
+    except FileNotFoundError:
+        print(f"{perm_version} not found.")
+        return None
 
 
 def get_rooms():
     """
-    A function to return all chat rooms.
+    A function to return a dictionary of all rooms.
     """
-    try:
-        with open(ROOMS_DB) as file:
-            return json.loads(file.read())
-    except FileNotFoundError:
-        print("Rooms db not found.")
-        return None
+    return read_collection(ROOM_COLLECTION)
+
+
+def get_users():
+    """
+    A function to return a dictionary of all users.
+    """
+    return read_collection(USER_COLLECTION)
 
 
 def add_room(roomname):
@@ -56,24 +70,8 @@ def add_room(roomname):
         return DUPLICATE
     else:
         rooms[roomname] = {"num_users": 0}
-        write_rooms(rooms)
+        write_collection(ROOM_COLLECTION, rooms)
         return OK
-
-
-def get_users():
-    """
-    A function to return a dictionary of all users.
-    """
-    try:
-        with open(USERS_DB) as file:
-            return json.loads(file.read())
-    except FileNotFoundError:
-        print("Users db not found.")
-        return None
-
-
-def write_users(users):
-    pass
 
 
 def add_user(username):
@@ -88,6 +86,6 @@ def add_user(username):
     elif username in users:
         return DUPLICATE
     else:
-        users[username] = {"num_users": 0}
-        write_users(users)
+        users[username] = {}
+        write_collection(USER_COLLECTION, users)
         return OK
