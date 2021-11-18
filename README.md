@@ -4,10 +4,12 @@
 
 - List chat rooms
 - Create a user
+- Update a user
 - Delete a user
 - Allow user to enter chat room
+- Allow user to leave chat room
 - Greet the user
-- Keep track of users
+- List users
 - Answer user questions
 - Recognize user has left
 - Post messages
