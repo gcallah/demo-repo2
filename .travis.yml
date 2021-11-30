@@ -6,7 +6,6 @@ install:
     - pip install -r requirements-dev.txt
 
 env:
-    - DEMO_HOME=/home/travis/build/gcallah/demo-repo2
     - PYTHONPATH=/home/travis/build/gcallah/demo-repo2
 
 script:
