@@ -35,6 +35,7 @@ def read_collection(perm_version):
     """
     A function to read a colleciton off of disk.
     """
+    print(f"{perm_version=}")
     try:
         with open(perm_version) as file:
             return json.loads(file.read())
@@ -50,11 +51,18 @@ def get_rooms():
     return read_collection(ROOM_COLLECTION)
 
 
-def get_users():
+def room_exists(roomname):
+    rooms = get_rooms()
+    return roomname in rooms
+
+
+def del_room(roomname):
     """
-    A function to return a dictionary of all users.
+    Delete roomname from the db.
     """
-    return read_collection(USER_COLLECTION)
+    if not room_exists(roomname):
+        return NOT_FOUND
+    return OK
 
 
 def add_room(roomname):
@@ -72,6 +80,13 @@ def add_room(roomname):
         rooms[roomname] = {"num_users": 0}
         write_collection(ROOM_COLLECTION, rooms)
         return OK
+
+
+def get_users():
+    """
+    A function to return a dictionary of all users.
+    """
+    return read_collection(USER_COLLECTION)
 
 
 def add_user(username):

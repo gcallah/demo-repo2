@@ -31,7 +31,7 @@ class HelloWorld(Resource):
         return {HELLO: WORLD}
 
 
-@api.route('/list_rooms')
+@api.route('/rooms/list')
 class ListRooms(Resource):
     """
     This endpoint returns a list of all rooms.
@@ -49,7 +49,7 @@ class ListRooms(Resource):
             return rooms
 
 
-@api.route('/create_room/<roomname>')
+@api.route('/rooms/create/<roomname>')
 class CreateRoom(Resource):
     """
     This class supports adding a chat room.
@@ -66,6 +66,30 @@ class CreateRoom(Resource):
             raise (wz.NotFound("Chat room db not found."))
         elif ret == db.DUPLICATE:
             raise (wz.NotAcceptable("Chat room name already exists."))
+        else:
+            return f"{roomname} added."
+
+
+@api.route('/rooms/delete/<roomname>')
+class DeleteRoom(Resource):
+    """
+    This class enables deleting a chat room.
+    While 'Forbidden` is a possible return value, we have not yet implemented
+    a user privileges section, so it isn't used yet.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.FORBIDDEN,
+                  'Only the owner of a room can delete it.')
+    def post(self, roomname):
+        """
+        This method deletes a room from the room db.
+        """
+        ret = db.del_room(roomname)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound(f"Chat room {roomname} not found."))
+        else:
+            return f"{roomname} deleted."
 
 
 @api.route('/endpoints')
@@ -83,7 +107,7 @@ class Endpoints(Resource):
         return {"Available endpoints": endpoints}
 
 
-@api.route('/list_users')
+@api.route('/users/list')
 class ListUsers(Resource):
     """
     This endpoint returns a list of all users.
@@ -101,7 +125,7 @@ class ListUsers(Resource):
             return users
 
 
-@api.route('/create_user/<username>')
+@api.route('/user/create/<username>')
 class CreateUser(Resource):
     """
     This class supports adding a user to the chat room.
