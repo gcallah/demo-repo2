@@ -2,3 +2,4 @@ flask
 flask-restx
 gunicorn
 werkzeug
+pymongo

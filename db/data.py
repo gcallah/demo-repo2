@@ -6,6 +6,8 @@ Gradually, we will fill in actual calls to our datastore.
 
 import json
 import os
+import pymongo as pm
+# import bson.json_utils as bsutils
 
 DEMO_HOME = os.environ["DEMO_HOME"]
 TEST_MODE = os.environ.get("TEST_MODE", 0)
@@ -18,9 +20,16 @@ else:
 ROOM_COLLECTION = f"{DB_DIR}/rooms.json"
 USER_COLLECTION = f"{DB_DIR}/users.json"
 
+DB_NAME = "chatDB"
+ROOMS = "rooms"
+
 OK = 0
 NOT_FOUND = 1
 DUPLICATE = 2
+
+# we'll begin cutting over to mongo!
+client = pm.MongoClient()
+print(client)
 
 
 def write_collection(perm_version, mem_version):
@@ -49,6 +58,7 @@ def get_rooms():
     A function to return a dictionary of all rooms.
     """
     return read_collection(ROOM_COLLECTION)
+    # return client[DB_NAME][ROOMS].to_json()
 
 
 def room_exists(roomname):
