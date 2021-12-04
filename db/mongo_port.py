@@ -14,6 +14,7 @@ It assumes that cause that's what we've been using!
 import sys
 import json
 import pymongo as pm
+from pymongo.server_api import ServerApi
 
 
 def read_collection(json_version):
@@ -33,7 +34,7 @@ def new_ent_from_json(key_name, ent_name, ent_data):
     return {**dict1, **ent_data}
 
 
-client = pm.MongoClient()
+client = pm.MongoClient("mongodb+srv://gcallah:1D9u0b4l%21@serverlessinstance0.irvgp.mongodb.net/chatDB?retryWrites=true&w=majority", server_api=ServerApi('1'))
 print(client)
 
 if len(sys.argv) < 4:
