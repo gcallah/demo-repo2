@@ -125,7 +125,7 @@ class ListUsers(Resource):
             return users
 
 
-@api.route('/user/create/<username>')
+@api.route('/users/create/<username>')
 class CreateUser(Resource):
     """
     This class supports adding a user to the chat room.

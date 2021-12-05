@@ -16,6 +16,8 @@ import json
 import pymongo as pm
 from pymongo.server_api import ServerApi
 
+import mongo_connect as mc
+
 
 def read_collection(json_version):
     """
@@ -34,7 +36,9 @@ def new_ent_from_json(key_name, ent_name, ent_data):
     return {**dict1, **ent_data}
 
 
-client = pm.MongoClient("mongodb+srv://gcallah:1D9u0b4l%21@serverlessinstance0.irvgp.mongodb.net/chatDB?retryWrites=true&w=majority", server_api=ServerApi('1'))
+client = pm.MongoClient(f"mongodb+srv://gcallah:{mc.PASSWD}.@{mc.CLOUD_DB}"
+                        + f"/chatDB?{mc.DB_PARAMS}",
+                        server_api=ServerApi('1'))
 print(client)
 
 if len(sys.argv) < 4:
