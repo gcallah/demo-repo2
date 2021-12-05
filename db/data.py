@@ -7,7 +7,7 @@ Gradually, we will fill in actual calls to our datastore.
 import json
 import os
 import pymongo as pm
-# import bson.json_utils as bsutils
+import bson.json_util as bsutil
 
 DEMO_HOME = os.environ["DEMO_HOME"]
 TEST_MODE = os.environ.get("TEST_MODE", 0)
@@ -53,12 +53,25 @@ def read_collection(perm_version):
         return None
 
 
+def fetch_all(collect_nm):
+    all_docs = []
+    for doc in client[DB_NAME][collect_nm].find():
+        print(doc)
+        all_docs.append(json.loads(bsutil.dumps(doc)))
+    return all_docs
+
+
 def get_rooms():
     """
     A function to return a dictionary of all rooms.
     """
-    return read_collection(ROOM_COLLECTION)
-    # return client[DB_NAME][ROOMS].to_json()
+    # return read_collection(ROOM_COLLECTION)
+    return fetch_all(ROOMS)
+    # rooms = []
+    # for room in client[DB_NAME][ROOMS].find():
+    #     print(room)
+    #     rooms.append(json.loads(bsutil.dumps(room)))
+    # return rooms
 
 
 def room_exists(roomname):
