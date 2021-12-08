@@ -31,7 +31,12 @@ NOT_FOUND = 1
 DUPLICATE = 2
 
 # we'll begin cutting over to mongo!
-client = pm.MongoClient()
+if os.environ.get("LOCAL_MONGO", False):
+    client = pm.MongoClient(f"mongodb+srv://gcallah:{mc.PASSWD}.@{mc.CLOUD_DB}"
+                            + f"/chatDB?{mc.DB_PARAMS}",
+                            server_api=ServerApi('1'))
+else:
+    client = pm.MongoClient()
 print(client)
 
 
