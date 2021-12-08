@@ -13,10 +13,8 @@ It assumes that cause that's what we've been using!
 """
 import sys
 import json
-import pymongo as pm
-from pymongo.server_api import ServerApi
 
-import mongo_connect as mc
+import db_connect as dbc
 
 
 def read_collection(json_version):
@@ -36,9 +34,7 @@ def new_ent_from_json(key_name, ent_name, ent_data):
     return {**dict1, **ent_data}
 
 
-client = pm.MongoClient(f"mongodb+srv://gcallah:{mc.PASSWD}.@{mc.CLOUD_DB}"
-                        + f"/chatDB?{mc.DB_PARAMS}",
-                        server_api=ServerApi('1'))
+client = dbc.get_client()
 print(client)
 
 if len(sys.argv) < 4:

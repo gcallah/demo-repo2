@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export passwd="1D9u0b4l%21"
+export passwd=$MONGO_PASSWD
 export db="chatDB"
 export collect="rooms"
-export key="name"
+export key="roomName"
 
 python3 mongo_port.py $db $collect $key $passwd
