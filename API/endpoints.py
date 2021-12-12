@@ -146,3 +146,24 @@ class CreateUser(Resource):
         elif ret == db.DUPLICATE:
             raise (wz.NotAcceptable("User name already exists."))
         return f"{username} added."
+
+
+@api.route('/users/delete/<username>')
+class DeleteUser(Resource):
+    """
+    This class enables deleting a chat user.
+    While 'Forbidden` is a possible return value, we have not yet implemented
+    a user privileges section, so it isn't used yet.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.FORBIDDEN, 'A user can only delete themselves.')
+    def post(self, username):
+        """
+        This method deletes a user from the user db.
+        """
+        ret = db.del_user(username)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound(f"Chat participant {username} not found."))
+        else:
+            return f"{username} deleted."

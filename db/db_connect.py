@@ -40,10 +40,17 @@ def fetch_one(collect_nm, filters={}):
     return client[db_nm][collect_nm].find_one(filters)
 
 
+def del_one(collect_nm, filters={}):
+    """
+    Fetch one record that meets filters.
+    """
+    return client[db_nm][collect_nm].delete_one(filters)
+
+
 def fetch_all(collect_nm, key_nm):
     all_docs = {}
     for doc in client[db_nm][collect_nm].find():
-        print(doc)
+        # print(doc)
         all_docs[doc[key_nm]] = json.loads(bsutil.dumps(doc))
     return all_docs
 

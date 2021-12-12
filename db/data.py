@@ -57,7 +57,9 @@ def del_room(roomname):
     """
     if not room_exists(roomname):
         return NOT_FOUND
-    return OK
+    else:
+        dbc.del_one(ROOMS, filters={ROOM_NM: roomname})
+        return OK
 
 
 def add_room(roomname):
@@ -99,4 +101,15 @@ def add_user(username):
         return DUPLICATE
     else:
         dbc.insert_doc(USERS, {USER_NM: username})
+        return OK
+
+
+def del_user(username):
+    """
+    Delete username from the db.
+    """
+    if not user_exists(username):
+        return NOT_FOUND
+    else:
+        dbc.del_one(USERS, filters={USER_NM: username})
         return OK
