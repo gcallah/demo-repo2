@@ -33,6 +33,13 @@ def get_client():
     return client
 
 
+def fetch_one(collect_nm, filters={}):
+    """
+    Fetch one record that meets filters.
+    """
+    return client[db_nm][collect_nm].find_one(filters)
+
+
 def fetch_all(collect_nm, key_nm):
     all_docs = {}
     for doc in client[db_nm][collect_nm].find():

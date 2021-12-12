@@ -65,7 +65,7 @@ class CreateRoom(Resource):
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("Chat room db not found."))
         elif ret == db.DUPLICATE:
-            raise (wz.NotAcceptable("Chat room name already exists."))
+            raise (wz.NotAcceptable(f"Chat room {roomname} already exists."))
         else:
             return f"{roomname} added."
 

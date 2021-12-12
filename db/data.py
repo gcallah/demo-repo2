@@ -42,8 +42,13 @@ def get_rooms():
 
 
 def room_exists(roomname):
-    rooms = get_rooms()
-    return roomname in rooms
+    """
+    See if a room with roomname is in the db.
+    Returns True of False.
+    """
+    rec = dbc.fetch_one(ROOMS, filters={ROOM_NM: roomname})
+    print(f"{rec=}")
+    return rec is not None
 
 
 def del_room(roomname):
@@ -59,15 +64,22 @@ def add_room(roomname):
     """
     Add a room to the room database.
     """
-    rooms = get_rooms()
-    if rooms is None:
-        return NOT_FOUND
-    elif roomname in rooms:
+    print(f"{roomname=}")
+    if room_exists(roomname):
         return DUPLICATE
     else:
-        rooms[roomname] = {"num_users": 0}
         dbc.insert_doc(ROOMS, {ROOM_NM: roomname, NUM_USERS: 0})
         return OK
+
+
+def user_exists(username):
+    """
+    See if a user with username is in the db.
+    Returns True of False.
+    """
+    rec = dbc.fetch_one(USERS, filters={USER_NM: username})
+    print(f"{rec=}")
+    return rec is not None
 
 
 def get_users():
@@ -83,10 +95,7 @@ def add_user(username):
     Until we are using a real DB, we have a potential
     race condition here.
     """
-    users = get_users()
-    if users is None:
-        return NOT_FOUND
-    elif username in users:
+    if user_exists(username):
         return DUPLICATE
     else:
         dbc.insert_doc(USERS, {USER_NM: username})
