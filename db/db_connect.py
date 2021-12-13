@@ -4,11 +4,13 @@ This file contains some common MongoDB code.
 import os
 import json
 import pymongo as pm
+from pymongo.server_api import ServerApi
 import bson.json_util as bsutil
+
 
 # all of these will eventually be put in the env:
 user_nm = "gcallah"
-cloud_db = "serverlessinstance0.irvgp.mongodb.net"
+cloud_svc = "serverlessinstance0.irvgp.mongodb.net"
 passwd = os.environ.get("MONGO_PASSWD", '')
 cloud_mdb = "mongodb+srv"
 db_params = "retryWrites=true&w=majority"
@@ -32,9 +34,10 @@ def get_client():
         client = pm.MongoClient()
     else:
         print("Connecting to Mongo remotely.")
-        client = pm.MongoClient(f"mongodb+srv://{user_nm}:{passwd}.@{cloud_db}"
-                                + f"/{db_nm}?{db_params}",
-                                server_api=pm.ServerApi('1'))
+        client = pm.MongoClient(f"mongodb+srv://gcallah:{passwd}@"
+                                + f"{cloud_svc}/{db_nm}?"
+                                + "retryWrites=true&w=majority",
+                                server_api=ServerApi('1'))
     return client
 
 
