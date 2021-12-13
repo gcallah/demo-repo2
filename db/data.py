@@ -31,7 +31,9 @@ DUPLICATE = 2
 
 
 client = dbc.get_client()
-print(client)
+if client is None:
+    print("Failed to connect to MongoDB.")
+    exit(1)
 
 
 def get_rooms():
