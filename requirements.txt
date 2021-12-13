@@ -2,4 +2,4 @@ flask
 flask-restx
 gunicorn
 werkzeug
-pymongo
+pymongo[srv]
