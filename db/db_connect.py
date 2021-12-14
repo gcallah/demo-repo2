@@ -14,7 +14,10 @@ cloud_svc = "serverlessinstance0.irvgp.mongodb.net"
 passwd = os.environ.get("MONGO_PASSWD", '')
 cloud_mdb = "mongodb+srv"
 db_params = "retryWrites=true&w=majority"
-db_nm = "chatDB"
+
+db_nm = 'chatDB'
+if os.environ.get("TEST_MODE", ''):
+    db_nm = "test_chatDB"
 
 REMOTE = "0"
 LOCAL = "1"
