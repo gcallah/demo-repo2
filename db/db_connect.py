@@ -59,11 +59,20 @@ def del_one(collect_nm, filters={}):
 
 
 def fetch_all(collect_nm, key_nm):
-    all_docs = {}
+    all_docs = []
     for doc in client[db_nm][collect_nm].find():
-        # print(doc)
-        all_docs[doc[key_nm]] = json.loads(bsutil.dumps(doc))
+        all_docs.append(json.loads(bsutil.dumps(doc)))
     return all_docs
+
+
+def fetch_all_as_dict(collect_nm, key_nm):
+    all_list = fetch_all(collect_nm, key_nm)
+    print(f'{all_list=}')
+    all_dict = {}
+    for doc in all_list:
+        print(f'{doc=}')
+        all_dict[doc[key_nm]] = doc[key_nm]
+    return all_dict
 
 
 def insert_doc(collect_nm, doc):

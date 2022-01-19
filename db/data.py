@@ -31,9 +31,16 @@ if client is None:
 
 def get_rooms():
     """
-    A function to return a dictionary of all rooms.
+    A function to return a list of all rooms.
     """
     return dbc.fetch_all(ROOMS, ROOM_NM)
+
+
+def get_rooms_as_dict():
+    """
+    A function to return a dictionary of all rooms.
+    """
+    return dbc.fetch_all_as_dict(ROOMS, ROOM_NM)
 
 
 def room_exists(roomname):
@@ -81,7 +88,7 @@ def user_exists(username):
 
 def get_users():
     """
-    A function to return a dictionary of all users.
+    A function to return a list of all users.
     """
     return dbc.fetch_all(USERS, USER_NM)
 
