@@ -11,6 +11,9 @@ env:
 script:
     - make all_tests
 
+before_deploy:
+    - rvm $(travis_internal_ruby) do ruby -S gem install faraday -v 1.8.0        
+
 # deploy to heroku on push to master
 deploy:
     - provider: heroku
