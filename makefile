@@ -17,3 +17,6 @@ all_tests: FORCE
 all_docs: FORCE
 	cd $(API_DIR); make docs
 	cd $(DB_DIR); make docs
+
+heroku_api_key:
+	heroku auth:token
