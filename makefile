@@ -18,5 +18,8 @@ all_docs: FORCE
 	cd $(API_DIR); make docs
 	cd $(DB_DIR); make docs
 
+heroku_remote:
+	heroku git:remote -a demo-repo23
+
 heroku_api_key:
 	heroku auth:token
