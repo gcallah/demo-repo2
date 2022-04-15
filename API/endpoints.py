@@ -4,9 +4,9 @@ The endpoint called `endpoints` will return all available endpoints.
 """
 
 from http import HTTPStatus
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
-from flask_restx import Resource, Api
+from flask_restx import Resource, Api, fields
 import werkzeug.exceptions as wz
 
 import db.data as db
@@ -33,6 +33,21 @@ class HelloWorld(Resource):
         return {HELLO: WORLD}
 
 
+@api.route('/endpoints')
+class Endpoints(Resource):
+    """
+    This class will serve as live, fetchable documentation of what endpoints
+    are available in the system.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    def get(self):
+        """
+        The `get()` method will return a list of available endpoints.
+        """
+        endpoints = sorted(rule.rule for rule in api.app.url_map.iter_rules())
+        return {"Available endpoints": endpoints}
+
+
 @api.route('/rooms/list')
 class ListRooms(Resource):
     """
@@ -51,7 +66,13 @@ class ListRooms(Resource):
             return rooms
 
 
-@api.route('/rooms/create/<roomname>')
+room_fields = api.model('Room', {
+    'room_name': fields.String,
+    'room_descr': fields.String
+})
+
+
+@api.route('/rooms/create')
 class CreateRoom(Resource):
     """
     This class supports adding a chat room.
@@ -59,10 +80,14 @@ class CreateRoom(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
     @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key')
-    def post(self, roomname):
+    @api.expect(room_fields)
+    def post(self):
         """
         This method adds a room to the room db.
         """
+        req_data = request.json
+        print(f'{req_data}')
+        roomname = req_data['room_name']
         ret = db.add_room(roomname)
         if ret == db.NOT_FOUND:
             raise (wz.NotFound("Chat room db not found."))
@@ -92,21 +117,6 @@ class DeleteRoom(Resource):
             raise (wz.NotFound(f"Chat room {roomname} not found."))
         else:
             return f"{roomname} deleted."
-
-
-@api.route('/endpoints')
-class Endpoints(Resource):
-    """
-    This class will serve as live, fetchable documentation of what endpoints
-    are available in the system.
-    """
-    @api.response(HTTPStatus.OK, 'Success')
-    def get(self):
-        """
-        The `get()` method will return a list of available endpoints.
-        """
-        endpoints = sorted(rule.rule for rule in api.app.url_map.iter_rules())
-        return {"Available endpoints": endpoints}
 
 
 @api.route('/users/list')
