@@ -16,5 +16,6 @@ deploy:
     - provider: heroku
       api_key: $HEROKU_API_KEY
       app: demo-repo23
+      edge: true
       on:
           branch: master
