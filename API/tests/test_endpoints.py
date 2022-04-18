@@ -44,9 +44,8 @@ class EndpointTestCase(TestCase):
         See if we can successfully create a new room.
         Post-condition: room is in DB.
         """
-        room_fields = {'room_name': new_entity_name('foo'),
-                       'room_descr': 'bar'}
-        response = ep.app.test_client().post('/rooms/create', json=room_fields)
+        ep.TEST_ROOM_FIELDS[ep.ROOM_NAME] = new_entity_name('room')
+        response = ep.app.test_client().post('/rooms/create', json=ep.TEST_ROOM_FIELDS)
         print(f'post {response=}')
         self.assertEqual(response.status_code, 200)
         rooms = db.get_rooms_as_dict()
