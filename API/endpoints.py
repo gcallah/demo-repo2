@@ -66,10 +66,16 @@ class ListRooms(Resource):
             return rooms
 
 
+ROOM_NAME = 'room_name'
+ROOM_DESCR = 'room_descr'
+
 room_fields = api.model('Room', {
-    'room_name': fields.String,
-    'room_descr': fields.String
+    ROOM_NAME: fields.String,
+    ROOM_DESCR: fields.String
 })
+
+TEST_ROOM_FIELDS = {ROOM_NAME: 'REPLACE!',
+                    ROOM_DESCR: 'bar'}
 
 
 @api.route('/rooms/create')
